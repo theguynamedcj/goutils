@@ -42,18 +42,6 @@ func main() {
 					}
 				}
 			}
-<<<<<<< HEAD
-			case selectedFunction == 3: {
-				fmt.Println("Exiting...")
-				return
-			}
-			default: {
-				fmt.Println ("Err: Invalid value")
-				fmt.Println ("Exiting...")
-				return
-
-
-=======
 		case selectedFunction == 3:
 			{
 				fmt.Println("Exiting...")
@@ -65,7 +53,6 @@ func main() {
 				fmt.Println("Exiting...")
 				return
 
->>>>>>> 3666f9b (Initial commit)
 			}
 		}
 	}
