@@ -15,7 +15,7 @@ or
 ```sh
 git clone https://github.com/theguynamedcj/goutils
 # then run:
-# ./goutils
+./goutils
 ```
 
 ## Functions include :
