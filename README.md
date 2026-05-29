@@ -13,7 +13,7 @@ goutils
 
 or 
 ```sh
-https://github.com/theguynamedcj/goutils
+git clone https://github.com/theguynamedcj/goutils
 # then run:
 # ./goutils
 ```
