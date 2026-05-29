@@ -27,6 +27,6 @@ cd goutils
 
 ## Todo list
 
-- [x] Quote Generator
-- [x] Password Generator
-- [ ] Calculator
+- [x] ~~Quote Generator~~
+- [x] ~~Password Generator~~
+- [ ] ~~Calculator~~
