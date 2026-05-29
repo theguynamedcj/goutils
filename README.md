@@ -5,7 +5,7 @@ A simple go program that has many function
 ```sh 
 go install github.com/theguynamedcj/goutils@latest
 
-# then add it to  path 
+# then add it to your path 
 sudo mv ~/go/bin/goutils /usr/local/bin/
 ## then run:
 goutils
