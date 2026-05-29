@@ -29,4 +29,4 @@ cd goutils
 
 - [x] ~~Quote Generator~~
 - [x] ~~Password Generator~~
-- [ ] ~~Calculator~~
+- [ ] Calculator
