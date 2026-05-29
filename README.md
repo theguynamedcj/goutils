@@ -1,7 +1,7 @@
 ## Project Description ![goutils logo](goutilslogo2.png)
 A simple go program that has many function
 
-## To install simply type in your terminal:
+## To run simply type in your terminal:
 ```sh 
 go install github.com/theguynamedcj/goutils@latest
 
@@ -9,6 +9,13 @@ go install github.com/theguynamedcj/goutils@latest
 sudo mv ~/go/bin/goutils /usr/local/bin/
 ## then run:
 goutils
+```
+
+or 
+```sh
+https://github.com/theguynamedcj/goutils
+# then run:
+# ./goutils
 ```
 
 ## Functions include :
@@ -20,8 +27,5 @@ goutils
 
 - [ ] Calculator
 - [ ] Random Quotes generator
-<<<<<<< HEAD
 - [ ] Password Generator
-=======
 - [ ] Password Generator
->>>>>>> 09a7afb (added a logo for goutils)
