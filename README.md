@@ -19,11 +19,14 @@ cd goutils
 ```
 
 ## Functions include :
-- A random number generator : Randomly generates a number of your desired maximum
-- Hot and Cold: A number guessing game
+- A random number generator : Randomly generates a number of your desired maximum.
+- Hot and Cold: A number guessing game.
+- Quote generator: Gets a random quote from this api: https://zenquotes.io/api/random.
+- Password generator: Generates random password of a custom length and characters.
 - More to come...
 
 ## Todo list
 
+- [x] Quote Generator
+- [x] Password Generator
 - [ ] Calculator
-- [ ] Password Generator

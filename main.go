@@ -1,37 +1,105 @@
 package main
 
 import (
+	"crypto/rand"
+	"encoding/json"
 	"fmt"
-	"math/rand"
+	"io"
+	"math/big"
+	mathrand "math/rand" // use mathrand for an alias for math/rand to avoid importing error
+	"net/http"
 )
+
+type Quote struct {
+	Quote  string `json:"q"`
+	Author string `json:"a"`
+}
+
+const (
+	lowercase = "abcdefghijklmnopqrstuvwxyz"
+	uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	numbers   = "0123456789"
+	special   = "!@#$%^&*()-_=+[]{}|;:,.<>?"
+)
+
+func generatePassword(length int, includeUpper, includeLower, includeNumbers, includeSpecial bool) (string, error) {
+	var chars string
+
+	if includeUpper {
+		chars += uppercase
+	}
+
+	if includeLower {
+		chars += lowercase
+	}
+
+	if includeNumbers {
+		chars += numbers
+	}
+
+	if includeSpecial {
+		chars += special
+	}
+
+	if chars == "" {
+		return "", fmt.Errorf("Must select at least one character type")
+	}
+
+	password := make([]byte, length)
+	charsLen := big.NewInt(int64(len(chars)))
+
+	for i := 0; i < length; i++ {
+		num, err := rand.Int(rand.Reader, charsLen)
+		if err != nil {
+			return "", err
+		}
+		password[i] = chars[num.Int64()]
+	}
+
+	return string(password), nil
+}
 
 func main() {
 	var selectedFunction int
-	fmt.Print("Select a function (1 for number generator or 2 for hot and cold game or 3 to exit): ")
-	fmt.Scan(&selectedFunction)
+	fmt.Print("Select a function (1 for number generator, 2 for hot and cold game, 3 for password manager, 4 for quote generator or 5 to exit): ")
+	_, err := fmt.Scan(&selectedFunction)
+	if err != nil {
+		fmt.Println("Error: Invalid input")
+		return
+	}
 
 	if selectedFunction > 0 {
 		switch {
 		case selectedFunction == 1:
 			{
 				var limit int
-				fmt.Print("Welcome to the random number generator!", ", Please select your maximum number : ")
-				fmt.Scan(&limit)
-				fmt.Println("Your number is", rand.Intn(limit))
-
+				fmt.Print("Welcome to the random number generator! Please select your maximum number: ")
+				_, err := fmt.Scan(&limit)
+				if err != nil {
+					fmt.Println("Error: Invalid input")
+					return
+				}
+				fmt.Println("Your number is", mathrand.Intn(limit))
 			}
 		case selectedFunction == 2:
 			{
 				var maxNum int
-				fmt.Print("Welcome to the Hot and cold game!", ", Please select your maximum number: ")
-				fmt.Scan(&maxNum)
-
-				actualNumber := rand.Intn(maxNum)
+				fmt.Print("Welcome to the Hot and cold game! Please select your maximum number: ")
+				_, err := fmt.Scan(&maxNum)
+				if err != nil {
+					fmt.Println("Error: Invalid input")
+					return
+				}
+				actualNumber := mathrand.Intn(maxNum) // Use mathrand.Intn
 				var guessedNumber int
 				for {
 					fmt.Print("Guess the number: ")
-					fmt.Scan(&guessedNumber)
+					_, err := fmt.Scan(&guessedNumber)
+					if err != nil {
+						fmt.Println("Error: Invalid input")
+						continue
 
+					}
 					if guessedNumber == actualNumber {
 						fmt.Println("You got it correctly")
 						return
@@ -42,17 +110,80 @@ func main() {
 					}
 				}
 			}
+
 		case selectedFunction == 3:
+			{
+				var length int
+				var includeUpper, includeLower, includeNumbers, includeSpecial bool
+				var input string
+
+				fmt.Print("Enter password length: ")
+				_, err := fmt.Scan(&length)
+				if err != nil || length <= 0 {
+					fmt.Println("Error: Invalid Input")
+					return
+				}
+
+				fmt.Print("Include lowercase? (y/n): ")
+				fmt.Scan(&input)
+				includeLower = input == "y" || input == "Y"
+
+				fmt.Print("Include upper? (y/n): ")
+				fmt.Scan(&input)
+				includeUpper = input == "y" || input == "Y"
+
+				fmt.Print("Include numbers? (y/n): ")
+				fmt.Scan(&input)
+				includeNumbers = input == "y" || input == "Y"
+
+				fmt.Print("Include special characters? (y/n): ")
+				fmt.Scan(&input)
+				includeSpecial = input == "y" || input == "Y"
+
+				password, err := generatePassword(length, includeLower, includeUpper, includeNumbers, includeSpecial)
+				if err != nil {
+					fmt.Println("Error: ", err)
+					return
+				}
+				fmt.Println("Password generated successfully!")
+				fmt.Println("Your password is", password)
+			}
+
+		case selectedFunction == 4:
+			{
+				resp, err := http.Get("https://zenquotes.io/api/random")
+				if err != nil {
+					fmt.Println("Failed to fetch code: ", err)
+					return
+				}
+				defer resp.Body.Close()
+
+				body, err := io.ReadAll(resp.Body)
+				if err != nil {
+					fmt.Println("Failed to read response body:", err)
+					return
+				}
+
+				var quotes []Quote
+				err = json.Unmarshal(body, &quotes)
+				if err != nil {
+					fmt.Println("Failed to parse response body", err)
+					return
+
+				}
+				if len(quotes) > 0 {
+					fmt.Println(quotes[0].Quote)
+					fmt.Println("-", quotes[0].Author)
+				}
+			}
+		case selectedFunction == 5:
 			{
 				fmt.Println("Exiting...")
 				return
 			}
 		default:
 			{
-				fmt.Println("Err: Invalid value")
-				fmt.Println("Exiting...")
-				return
-
+				fmt.Println("Err: Invalid selection, Please select 1, 2, 3, or 4")
 			}
 		}
 	}
