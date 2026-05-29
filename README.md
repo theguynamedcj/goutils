@@ -14,7 +14,7 @@ goutils
 or 
 ```sh
 git clone https://github.com/theguynamedcj/goutils
-# then run:
+# then cd into it folder and run:
 ./goutils
 ```
 
