@@ -1,4 +1,4 @@
-## Project Description
+## Project Description![[goutilslogo2.png]]
 A simple go program that has many function
 
 ## To install simply type in your terminal:
@@ -20,4 +20,8 @@ goutils
 
 - [ ] Calculator
 - [ ] Random Quotes generator
+<<<<<<< HEAD
 - [ ] Password Generator
+=======
+- [ ] Password Generator
+>>>>>>> 09a7afb (added a logo for goutils)
