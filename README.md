@@ -28,4 +28,3 @@ git clone https://github.com/theguynamedcj/goutils
 - [ ] Calculator
 - [ ] Random Quotes generator
 - [ ] Password Generator
-- [ ] Password Generator
