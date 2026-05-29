@@ -14,7 +14,7 @@ goutils
 or 
 ```sh
 git clone https://github.com/theguynamedcj/goutils
-# then cd into it folder and run:
+cd goutils
 ./goutils
 ```
 
@@ -26,5 +26,4 @@ git clone https://github.com/theguynamedcj/goutils
 ## Todo list
 
 - [ ] Calculator
-- [ ] Random Quotes generator
 - [ ] Password Generator
