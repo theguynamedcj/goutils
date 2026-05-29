@@ -18,6 +18,6 @@ goutils
 
 ## Todo list
 
- [] Calculator
- [] Random Quotes generator
- [] Password Generator
+- [ ] Calculator
+- [ ] Random Quotes generator
+- [ ] Password Generator
