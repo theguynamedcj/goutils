@@ -1,4 +1,4 @@
-## Project Description ![[goutilslogo2.png]]
+## Project Description ![goutils logo](goutilslogo2.png)
 A simple go program that has many function
 
 ## To install simply type in your terminal:
