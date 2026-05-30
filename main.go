@@ -64,7 +64,7 @@ func main() {
 	fmt.Print("Select a function (1 for number generator, 2 for hot and cold game, 3 for password generator, 4 for quote generator or 5 to exit): ")
 	_, err := fmt.Scan(&selectedFunction)
 	if err != nil {
-		fmt.Println("Error: Invalid input")
+		fmt.Println("Err: Invalid selection, Please select 1, 2, 3, or 4")
 		return
 	}
 
@@ -120,7 +120,7 @@ func main() {
 				fmt.Print("Welcome to the password generator! Please, enter password length: ")
 				_, err := fmt.Scan(&length)
 				if err != nil || length <= 0 {
-					fmt.Println("Error: Invalid selection, Please select 1, 2, 3, or 4")
+					fmt.Println("Error: Invalid Input,")
 					return
 				}
 
@@ -183,7 +183,7 @@ func main() {
 			}
 		default:
 			{
-				fmt.Println("Error: Invalid selection, Please select 1, 2, 3, or 4")
+				fmt.Println("Err: Invalid selection, Please select 1, 2, 3, or 4")
 			}
 		}
 	}
