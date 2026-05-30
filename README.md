@@ -29,4 +29,5 @@ cd goutils
 
 - [x] ~~Quote Generator~~
 - [x] ~~Password Generator~~
+- [ ] A TUI
 - [ ] Calculator

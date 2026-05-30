@@ -5,13 +5,80 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
+//	"log"
 	"math/big"
 	mathrand "math/rand" // use mathrand for an alias for math/rand to avoid importing error
 	"net/http"
 
 	"github.com/atotto/clipboard"
+//	tea "github.com/charmbracelet/bubbletea"
 )
+
+/* type model struct {
+	screen int
+
+
+	choices []string
+	cursor int
+
+	numberGenInput string
+	numberGenLimit string
+	numberGenMax int
+	numberGenGeneratedNum int
+
+	hotAndColdLimit   int
+	hotAndColdActualValue  int
+	hotAndColdGuess   int
+	hotAndColdInput   string
+	hotAndColdMessage string
+
+	passwordLength         int
+	passwordIncludeUpper   bool
+	passwordIncludeLower   bool
+	passwordIncludeNumbers bool
+	passwordIncludeSpecial bool
+	passwordCopyClipboard  bool
+	passwordInput          string
+	passwordFieldIndex     int
+
+
+	quote string
+	author string
+
+}
+
+
+
+func initialModel() model {
+	return model{
+		screen:  0,
+		choices: []string{"number generator", "hot and cold hame", "password generator", "quote generator", "exit"},
+	}
+}
+
+
+func (m model) init() tea.Cmd {
+	return nil
+}
+
+// Main menu //
+func (m model) View() string{
+	switch m.screen {
+		case 0:
+			s := "welcome to gomulti!\n\n"
+   for i, choice := range m.choices {
+            cursor := " "
+            if m.cursor == i {
+                cursor = "> "
+            }
+            s += fmt.Print("%s%s\n", cursor, choice)
+        }
+        s += "\nPress 'q' to quit\n"
+        return s
+ */
+
+
+
 
 type Quote struct {
 	Quote  string `json:"q"`
@@ -126,7 +193,13 @@ func main() {
 					fmt.Println("Error: Invalid Input,")
 					return
 				}
-
+				if  length > 10000000 {
+					fmt.Print("WARNING: VALUES THIS LARGE CAN CAUSE YOUR MEMORY TO FILL UP AND COULD INITAITE A SIGKILL, WHICH COULD PREVENT THE PASSWORD FROM GENERATING!!!! WOULD YOU STILL LIKE TO PROCEED(NOT RECOMMENDED)? (y/n): ")
+					fmt.Scan(&input)
+					if input != "y" && input != "Y"{
+						return
+					}
+				}
 				fmt.Print("Include lowercase? (y/n): ")
 				fmt.Scan(&input)
 				includeLower = input == "y" || input == "Y"
@@ -155,9 +228,9 @@ func main() {
 				fmt.Println("Password generated successfully!")
 				fmt.Println("Your password is", password)
 				if copyToClipboard {
-					error := clipboard.WriteAll(password)
-					if error != nil {
-						log.Fatal(error)
+					err := clipboard.WriteAll(password)
+					if err != nil {
+						fmt.Print(err)
 					} else {
 						fmt.Println("Password copied to the clipboard")
 					}
