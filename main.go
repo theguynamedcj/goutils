@@ -61,7 +61,7 @@ func generatePassword(length int, includeUpper, includeLower, includeNumbers, in
 
 func main() {
 	var selectedFunction int
-	fmt.Print("Select a function (1 for number generator, 2 for hot and cold game, 3 for password manager, 4 for quote generator or 5 to exit): ")
+	fmt.Print("Select a function (1 for number generator, 2 for hot and cold game, 3 for password generator, 4 for quote generator or 5 to exit): ")
 	_, err := fmt.Scan(&selectedFunction)
 	if err != nil {
 		fmt.Println("Error: Invalid input")
@@ -117,7 +117,7 @@ func main() {
 				var includeUpper, includeLower, includeNumbers, includeSpecial bool
 				var input string
 
-				fmt.Print("Enter password length: ")
+				fmt.Print("Welcome to the password generator! Please, enter password length: ")
 				_, err := fmt.Scan(&length)
 				if err != nil || length <= 0 {
 					fmt.Println("Error: Invalid Input")
