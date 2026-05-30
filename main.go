@@ -5,9 +5,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"math/big"
 	mathrand "math/rand" // use mathrand for an alias for math/rand to avoid importing error
 	"net/http"
+
+	"github.com/atotto/clipboard"
 )
 
 type Quote struct {
@@ -22,7 +25,7 @@ const (
 	special   = "!@#$%^&*()-_=+[]{}|;:,.<>?"
 )
 
-func generatePassword(length int, includeUpper, includeLower, includeNumbers, includeSpecial bool) (string, error) {
+func generatePassword(length int, includeUpper, includeLower, includeNumbers, includeSpecial, copyToClipboard bool) (string, error) {
 	var chars string
 
 	if includeUpper {
@@ -114,7 +117,7 @@ func main() {
 		case selectedFunction == 3:
 			{
 				var length int
-				var includeUpper, includeLower, includeNumbers, includeSpecial bool
+				var includeUpper, includeLower, includeNumbers, includeSpecial, copyToClipboard bool
 				var input string
 
 				fmt.Print("Welcome to the password generator! Please, enter password length: ")
@@ -140,13 +143,25 @@ func main() {
 				fmt.Scan(&input)
 				includeSpecial = input == "y" || input == "Y"
 
-				password, err := generatePassword(length, includeLower, includeUpper, includeNumbers, includeSpecial)
+				fmt.Print("Copy to Clipboard? (y/n): ")
+				fmt.Scan(&input)
+				copyToClipboard = input == "y" || input == "Y"
+
+				password, err := generatePassword(length, includeLower, includeUpper, includeNumbers, includeSpecial, copyToClipboard)
 				if err != nil {
 					fmt.Println("Error: ", err)
 					return
 				}
 				fmt.Println("Password generated successfully!")
 				fmt.Println("Your password is", password)
+				if copyToClipboard {
+					error := clipboard.WriteAll(password)
+					if error != nil {
+						log.Fatal(error)
+					} else {
+						fmt.Println("Password copied to the clipboard")
+					}
+				}
 			}
 
 		case selectedFunction == 4:
