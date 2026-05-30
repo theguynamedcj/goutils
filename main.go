@@ -120,7 +120,7 @@ func main() {
 				fmt.Print("Welcome to the password generator! Please, enter password length: ")
 				_, err := fmt.Scan(&length)
 				if err != nil || length <= 0 {
-					fmt.Println("Error: Invalid Input")
+					fmt.Println("Error: Invalid selection, Please select 1, 2, 3, or 4")
 					return
 				}
 
@@ -183,7 +183,7 @@ func main() {
 			}
 		default:
 			{
-				fmt.Println("Err: Invalid selection, Please select 1, 2, 3, or 4")
+				fmt.Println("Error: Invalid selection, Please select 1, 2, 3, or 4")
 			}
 		}
 	}
