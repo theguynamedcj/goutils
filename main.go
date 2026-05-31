@@ -5,13 +5,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-//	"log"
+
+	//	"log"
 	"math/big"
 	mathrand "math/rand" // use mathrand for an alias for math/rand to avoid importing error
 	"net/http"
 
 	"github.com/atotto/clipboard"
-//	tea "github.com/charmbracelet/bubbletea"
+	// tea "github.com/charmbracelet/bubbletea"
 )
 
 /* type model struct {
@@ -75,10 +76,7 @@ func (m model) View() string{
         }
         s += "\nPress 'q' to quit\n"
         return s
- */
-
-
-
+*/
 
 type Quote struct {
 	Quote  string `json:"q"`
@@ -139,8 +137,8 @@ func main() {
 	}
 
 	if selectedFunction > 0 {
-		switch {
-		case selectedFunction == 1:
+		switch selectedFunction {
+		case 1:
 			{
 				var limit int
 				fmt.Print("Welcome to the random number generator! Please select your maximum number: ")
@@ -151,7 +149,7 @@ func main() {
 				}
 				fmt.Println("Your number is", mathrand.Intn(limit))
 			}
-		case selectedFunction == 2:
+		case 2:
 			{
 				var maxNum int
 				fmt.Print("Welcome to the Hot and cold game! Please select your maximum number: ")
@@ -181,7 +179,7 @@ func main() {
 				}
 			}
 
-		case selectedFunction == 3:
+		case 3:
 			{
 				var length int
 				var includeUpper, includeLower, includeNumbers, includeSpecial, copyToClipboard bool
@@ -193,10 +191,10 @@ func main() {
 					fmt.Println("Error: Invalid Input,")
 					return
 				}
-				if  length > 10000000 {
+				if length > 10000000 {
 					fmt.Print("WARNING: VALUES THIS LARGE CAN CAUSE YOUR MEMORY TO FILL UP AND COULD INITAITE A SIGKILL, WHICH COULD PREVENT THE PASSWORD FROM GENERATING!!!! WOULD YOU STILL LIKE TO PROCEED(NOT RECOMMENDED)? (y/n): ")
 					fmt.Scan(&input)
-					if input != "y" && input != "Y"{
+					if input != "y" && input != "Y" {
 						return
 					}
 				}
@@ -237,7 +235,7 @@ func main() {
 				}
 			}
 
-		case selectedFunction == 4:
+		case 4:
 			{
 				resp, err := http.Get("https://zenquotes.io/api/random")
 				if err != nil {
@@ -260,11 +258,11 @@ func main() {
 
 				}
 				if len(quotes) > 0 {
-					fmt.Println(quotes[0].Quote)
+					fmt.Println("\n", quotes[0].Quote)
 					fmt.Println("-", quotes[0].Author)
 				}
 			}
-		case selectedFunction == 5:
+		case 5:
 			{
 				fmt.Println("Exiting...")
 				return
