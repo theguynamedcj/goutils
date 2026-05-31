@@ -29,5 +29,7 @@ cd goutils
 
 - [x] ~~Quote Generator~~
 - [x] ~~Password Generator~~
+- [ ] Speed test
 - [ ] A TUI
 - [ ] Calculator
+
