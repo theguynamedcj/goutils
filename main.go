@@ -15,69 +15,6 @@ import (
 	// tea "github.com/charmbracelet/bubbletea"
 )
 
-/* type model struct {
-	screen int
-
-
-	choices []string
-	cursor int
-
-	numberGenInput string
-	numberGenLimit string
-	numberGenMax int
-	numberGenGeneratedNum int
-
-	hotAndColdLimit   int
-	hotAndColdActualValue  int
-	hotAndColdGuess   int
-	hotAndColdInput   string
-	hotAndColdMessage string
-
-	passwordLength         int
-	passwordIncludeUpper   bool
-	passwordIncludeLower   bool
-	passwordIncludeNumbers bool
-	passwordIncludeSpecial bool
-	passwordCopyClipboard  bool
-	passwordInput          string
-	passwordFieldIndex     int
-
-
-	quote string
-	author string
-
-}
-
-
-
-func initialModel() model {
-	return model{
-		screen:  0,
-		choices: []string{"number generator", "hot and cold hame", "password generator", "quote generator", "exit"},
-	}
-}
-
-
-func (m model) init() tea.Cmd {
-	return nil
-}
-
-// Main menu //
-func (m model) View() string{
-	switch m.screen {
-		case 0:
-			s := "welcome to gomulti!\n\n"
-   for i, choice := range m.choices {
-            cursor := " "
-            if m.cursor == i {
-                cursor = "> "
-            }
-            s += fmt.Print("%s%s\n", cursor, choice)
-        }
-        s += "\nPress 'q' to quit\n"
-        return s
-*/
-
 type Quote struct {
 	Quote  string `json:"q"`
 	Author string `json:"a"`
@@ -218,7 +155,7 @@ func main() {
 				fmt.Scan(&input)
 				copyToClipboard = input == "y" || input == "Y"
 
-				password, err := generatePassword(length, includeLower, includeUpper, includeNumbers, includeSpecial, copyToClipboard)
+				password, err := generatePassword(length, includeUpper, includeLower, includeNumbers, includeSpecial, copyToClipboard)
 				if err != nil {
 					fmt.Println("Error: ", err)
 					return
