@@ -21,15 +21,13 @@ cd goutils
 ## Functions include :
 - A random number generator : Randomly generates a number of your desired maximum.
 - Hot and Cold: A number guessing game.
-- Quote generator: Gets a random quote from this api: https://zenquotes.io/api/random.
+- Random quote generator: Gets a random quote from this api: https://zenquotes.io/api/random.
 - Password generator: Generates random password of a custom length and characters.
+- Speed test: checks interenet speed using speedtest.net by connecting to speedtest.net.
 - More to come...
 
 ## Todo list
 
-- [x] ~~Quote Generator~~
+- [x] ~~Random Quote Generator~~
 - [x] ~~Password Generator~~
-- [ ] Speed test
-- [ ] A TUI
-- [ ] Calculator
-
+- [x] ~~Speed test~~

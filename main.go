@@ -12,6 +12,7 @@ import (
 	"net/http"
 
 	"github.com/atotto/clipboard"
+	"github.com/showwin/speedtest-go/speedtest"
 	// tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -66,7 +67,7 @@ func generatePassword(length int, includeUpper, includeLower, includeNumbers, in
 
 func main() {
 	var selectedFunction int
-	fmt.Print("Select a function (1 for number generator, 2 for hot and cold game, 3 for password generator, 4 for quote generator or 5 to exit): ")
+	fmt.Print("Select a function (1 for number generator, 2 for hot and cold game, 3 for password generator, 4 for random quote or 5 for speed test or 6 to exit): ")
 	_, err := fmt.Scan(&selectedFunction)
 	if err != nil {
 		fmt.Println("Err: Invalid selection, Please select 1, 2, 3, or 4")
@@ -200,6 +201,29 @@ func main() {
 				}
 			}
 		case 5:
+			fmt.Println("Starting speed test...")
+			var speedtestClient = speedtest.New()
+			serverList, _ := speedtestClient.FetchServers()
+			targets, _ := serverList.FindServer([]int{})
+			for _, s := range targets {
+			if	err := s.PingTest(nil)
+				 err != nil {
+					fmt.Println("Failed to connect to server")
+					return
+				}
+			if	err := s.DownloadTest()
+				 err != nil {
+					fmt.Println("Failed to connect to server")
+				}
+			if	err := s.UploadTest()
+				 err != nil {
+					fmt.Println("Failed to connect to server")
+				}
+				fmt.Printf("\nLatency: %s, Download Speed: %s, Upload Speed: %s\n", s.Latency, s.DLSpeed, s.ULSpeed)
+				s.Context.Reset()
+			}
+
+		case 6:
 			{
 				fmt.Println("Exiting...")
 				return
