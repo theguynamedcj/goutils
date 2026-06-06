@@ -13,7 +13,6 @@ import (
 
 	"github.com/atotto/clipboard"
 	"github.com/showwin/speedtest-go/speedtest"
-	// tea "github.com/charmbracelet/bubbletea"
 )
 
 type Quote struct {
@@ -206,20 +205,20 @@ func main() {
 			serverList, _ := speedtestClient.FetchServers()
 			targets, _ := serverList.FindServer([]int{})
 			for _, s := range targets {
-			if	err := s.PingTest(nil)
-				 err != nil {
-					fmt.Println("Failed to connect to server")
+				if err := s.DownloadTest()
+			 		err != nil {
+						fmt.Println("Failed to connect to server")
+				}
+				if err := s.UploadTest()
+			 		err != nil {
+						fmt.Println("Failed to connect to server")
+				}
+				if err := s.PingTest(nil)
+			 		err != nil {
+						fmt.Println("Failed to connect to server")
 					return
 				}
-			if	err := s.DownloadTest()
-				 err != nil {
-					fmt.Println("Failed to connect to server")
-				}
-			if	err := s.UploadTest()
-				 err != nil {
-					fmt.Println("Failed to connect to server")
-				}
-				fmt.Printf("\nLatency: %s, Download Speed: %s, Upload Speed: %s\n", s.Latency, s.DLSpeed, s.ULSpeed)
+				fmt.Printf("\nUpload Speed: %s\nDownload Speed: %s\nLatency: %s\n", s.ULSpeed, s.DLSpeed, s.Latency)
 				s.Context.Reset()
 			}
 
