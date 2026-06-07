@@ -200,26 +200,33 @@ func main() {
 				}
 			}
 		case 5:
-			fmt.Println("Starting speed test...")
+			fmt.Println("\nStarting speed test...")
 			var speedtestClient = speedtest.New()
 			serverList, err := speedtestClient.FetchServers()
+			user, _ := speedtestClient.FetchUserInfo()
 			if err != nil {
 				fmt.Println("Error: Failed to connect to server: ", err)
-
 			}
+			fmt.Printf("Testing from %s (%s)...", user.Isp, user.IP)
 			targets, _ := serverList.FindServer([]int{})
 			for _, s := range targets {
-				if err := s.DownloadTest(); err != nil {
-					fmt.Println("Error: Failed to connect to server")
-				}
+				fmt.Println("\nTesting Upload speed...")
 				if err := s.UploadTest(); err != nil {
 					fmt.Println("Error: Failed to connect to server")
 				}
+				fmt.Printf("Upload Speed: %s", s.ULSpeed)
+
+				fmt.Println("\nTesting Download speed...")
+				if err := s.DownloadTest(); err != nil {
+					fmt.Println("Error: Failed to connect to server")
+				}
+				fmt.Printf("Download Speed: %s", s.DLSpeed)
+
+				fmt.Println("\nTesting Ping...")
 				if err := s.PingTest(nil); err != nil {
 					fmt.Println("Error: Failed to connect to server")
-					return
 				}
-				fmt.Printf("\nUpload Speed: %s\nDownload Speed: %s\nLatency: %s\n", s.ULSpeed, s.DLSpeed, s.Latency)
+				fmt.Printf("Ping: %s\n", s.Latency)
 				s.Context.Reset()
 			}
 
@@ -230,7 +237,7 @@ func main() {
 			}
 		default:
 			{
-				fmt.Println("Err: Invalid selection, Please select 1, 2, 3, or 4")
+				fmt.Println("Err: Invalid selection, Please select 1, 2, 3, 4, 5 or 6")
 			}
 		}
 	}
