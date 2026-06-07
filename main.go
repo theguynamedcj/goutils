@@ -66,7 +66,7 @@ func generatePassword(length int, includeUpper, includeLower, includeNumbers, in
 
 func main() {
 	var selectedFunction int
-	fmt.Print("Select a function (1 for number generator, 2 for hot and cold game, 3 for password generator, 4 for random quote or 5 for speed test or 6 to exit): ")
+	fmt.Print("Select a function (1 for number generator, 2 for hot and cold game, 3 for password generator, 4 for random quote, 5 for speed test or 6 to exit): ")
 	_, err := fmt.Scan(&selectedFunction)
 	if err != nil {
 		fmt.Println("Err: Invalid selection, Please select 1, 2, 3, or 4")
