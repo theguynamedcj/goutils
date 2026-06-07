@@ -53,7 +53,7 @@ func generatePassword(length int, includeUpper, includeLower, includeNumbers, in
 	password := make([]byte, length)
 	charsLen := big.NewInt(int64(len(chars)))
 
-	for i := 0; i < length; i++ {
+	for i := range length {
 		num, err := rand.Int(rand.Reader, charsLen)
 		if err != nil {
 			return "", err
@@ -202,20 +202,21 @@ func main() {
 		case 5:
 			fmt.Println("Starting speed test...")
 			var speedtestClient = speedtest.New()
-			serverList, _ := speedtestClient.FetchServers()
+			serverList, err := speedtestClient.FetchServers()
+			if err != nil {
+				fmt.Println("Error: Failed to connect to server: ", err)
+
+			}
 			targets, _ := serverList.FindServer([]int{})
 			for _, s := range targets {
-				if err := s.DownloadTest()
-			 		err != nil {
-						fmt.Println("Failed to connect to server")
+				if err := s.DownloadTest(); err != nil {
+					fmt.Println("Error: Failed to connect to server")
 				}
-				if err := s.UploadTest()
-			 		err != nil {
-						fmt.Println("Failed to connect to server")
+				if err := s.UploadTest(); err != nil {
+					fmt.Println("Error: Failed to connect to server")
 				}
-				if err := s.PingTest(nil)
-			 		err != nil {
-						fmt.Println("Failed to connect to server")
+				if err := s.PingTest(nil); err != nil {
+					fmt.Println("Error: Failed to connect to server")
 					return
 				}
 				fmt.Printf("\nUpload Speed: %s\nDownload Speed: %s\nLatency: %s\n", s.ULSpeed, s.DLSpeed, s.Latency)
