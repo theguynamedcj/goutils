@@ -203,10 +203,10 @@ func main() {
 			fmt.Println("\nStarting speed test...")
 			var speedtestClient = speedtest.New()
 			serverList, err := speedtestClient.FetchServers()
-			user, _ := speedtestClient.FetchUserInfo()
 			if err != nil {
 				fmt.Println("Error: Failed to connect to server: ", err)
 			}
+			user,  := speedtestClient.FetchUserInfo()
 			fmt.Printf("Testing from %s (%s)...", user.Isp, user.IP)
 			targets, _ := serverList.FindServer([]int{})
 			for _, s := range targets {
