@@ -66,10 +66,10 @@ func generatePassword(length int, includeUpper, includeLower, includeNumbers, in
 
 func main() {
 	var selectedFunction int
-	fmt.Print("Select a function (1 for number generator, 2 for hot and cold game, 3 for password generator, 4 for random quote, 5 for speed test or 6 to exit): ")
+	fmt.Print("Select a function (1 for number generator, 2 for hot and cold game, 3 for password generator, 4 for random quote, 5 for speed test or 0 to exit): ")
 	_, err := fmt.Scan(&selectedFunction)
 	if err != nil {
-		fmt.Println("Err: Invalid selection, Please select 1, 2, 3, or 4")
+		fmt.Println("Err: Invalid selection, Please select 1, 2, 3, 4, 5 or 0")
 		return
 	}
 
@@ -77,21 +77,13 @@ func main() {
 		switch selectedFunction {
 		case 1:
 			{
-				var origin int
 				var limit int
-				fmt.Print("Welcome to the random number generator! Please select your minimum number: ")
-				if _, err := fmt.Scan(&origin); err != nil {
+				fmt.Print("Welcome to the Random Number generator! Please select your maximum number: ")
+				_, err := fmt.Scan(&limit)
+				if err != nil {
 					fmt.Println("Error: Invalid input")
 					return
 				}
-				fmt.Print("Please select your maximum number: ")
-				if _, err := fmt.Scan(&limit); err != nil {
-					fmt.Println("Error: Invalid input")
-					return
-				}
-
-				generatedNumber := origin + mathrand.Intn(limit-origin+1)
-				fmt.Println("Your number is", mathrand.Intn(generatedNumber))
 			}
 		case 2:
 			{
@@ -209,19 +201,16 @@ func main() {
 		case 5:
 			fmt.Println("\nStarting speed test...")
 
-			
 			var speedtestClient = speedtest.New()
 			serverList, err := speedtestClient.FetchServers()
 			if err != nil {
 				fmt.Println("Error: Failed to connect to server: ", err)
 			}
 
-			
 			user, _ := speedtestClient.FetchUserInfo()
 			fmt.Printf("Testing from %s (%s)...", user.Isp, user.IP)
 			targets, _ := serverList.FindServer([]int{})
 
-			
 			for _, s := range targets {
 				fmt.Println("\nTesting Upload speed...")
 				if err := s.UploadTest(); err != nil {
@@ -229,16 +218,12 @@ func main() {
 				}
 				fmt.Printf("Upload Speed: %s", s.ULSpeed)
 
-
-				
 				fmt.Println("\nTesting Download speed...")
 				if err := s.DownloadTest(); err != nil {
 					fmt.Println("Error: Failed to connect to server")
 				}
 				fmt.Printf("Download Speed: %s", s.DLSpeed)
 
-
-				
 				fmt.Println("\nPinging Servers...")
 				if err := s.PingTest(nil); err != nil {
 					fmt.Println("Error: Failed to connect to server")
@@ -247,14 +232,9 @@ func main() {
 				s.Context.Reset()
 			}
 
-		case 6:
-			{
-				fmt.Println("Exiting...")
-				return
-			}
 		default:
 			{
-				fmt.Println("Err: Invalid selection, Please select 1, 2, 3, 4, 5 or 6")
+				fmt.Println("Err: Invalid selection, Please select 1, 2, 3, 4, 5 or 0")
 			}
 		}
 	}
