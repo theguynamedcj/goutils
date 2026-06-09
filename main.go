@@ -84,6 +84,7 @@ func main() {
 					fmt.Println("Error: Invalid input")
 					return
 				}
+				fmt.Println(mathrand.Intn(limit))
 			}
 		case 2:
 			{
