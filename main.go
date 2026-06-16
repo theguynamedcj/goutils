@@ -206,6 +206,7 @@ func main() {
 			serverList, err := speedtestClient.FetchServers()
 			if err != nil {
 				fmt.Println("Error: Failed to connect to server: ", err)
+				return
 			}
 
 			user, _ := speedtestClient.FetchUserInfo()
@@ -216,18 +217,21 @@ func main() {
 				fmt.Println("\nTesting Upload speed...")
 				if err := s.UploadTest(); err != nil {
 					fmt.Println("Error: Failed to connect to server")
+					return
 				}
 				fmt.Printf("Upload Speed: %s", s.ULSpeed)
 
 				fmt.Println("\nTesting Download speed...")
 				if err := s.DownloadTest(); err != nil {
 					fmt.Println("Error: Failed to connect to server")
+					return
 				}
 				fmt.Printf("Download Speed: %s", s.DLSpeed)
 
 				fmt.Println("\nPinging Servers...")
 				if err := s.PingTest(nil); err != nil {
 					fmt.Println("Error: Failed to connect to server")
+					return
 				}
 				fmt.Printf("Ping: %s\n", s.Latency)
 				s.Context.Reset()
@@ -238,5 +242,7 @@ func main() {
 				fmt.Println("Err: Invalid selection, Please select 1, 2, 3, 4, 5 or 0")
 			}
 		}
+	} else {
+		fmt.Println("Exiting...")
 	}
 }
